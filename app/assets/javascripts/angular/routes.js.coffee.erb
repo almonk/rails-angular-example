@@ -1,0 +1,20 @@
+`var win = typeof(window) === 'undefined' ? {} : window`
+`var mod = typeof(module) === 'undefined' ? {} : module`
+win.angularApp = win.angularApp || {}
+
+win.angular.module('CarsApp', ['CarsApp.services'])
+  .config ($routeProvider) ->
+    $routeProvider
+      .when '/',
+        controller: win.angularApp.CarsIndexController
+        templateUrl: '<%= asset_path "list.html" %>'
+      .when '/new',
+        controller: win.angularApp.CarsNewController
+        templateUrl: '<%= asset_path "new.html" %>'
+      .when '/edit/:car_id',
+        controller: win.angularApp.CarsEditController
+        templateUrl: '<%= asset_path "new.html" %>'
+      .otherwise redirectTo: '/'
+  .config [ "$httpProvider", (provider) ->
+      provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  ]

@@ -4,6 +4,7 @@ gem 'rails', '3.2.11'
 gem 'angular-rails'
 gem 'awesome_print'
 gem 'thin'
+gem 'better_errors'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

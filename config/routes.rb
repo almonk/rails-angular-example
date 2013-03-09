@@ -1,5 +1,5 @@
 Angular::Application.routes.draw do
-  root :to => 'cars#index'
+  root :to => 'home#index'
   resources :cars
 
 

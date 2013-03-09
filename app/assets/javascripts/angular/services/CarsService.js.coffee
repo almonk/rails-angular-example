@@ -2,13 +2,13 @@
 `var mod = typeof(module) === 'undefined' ? {} : module`
 win.angularApp = win.angularApp || {}
 
-win.angular.module('mongolab', ['ngResource'])
-  .factory 'Cars', ($resource) ->
+win.angular.module('CarsApp.services', ['ngResource'])
+  .factory 'CarsService', ($resource) ->
     $resource '/cars/:car_id', { car_id: '@id' },
       index: { method: 'GET', isArray: true},
       create: { method: 'POST' }
 
-  .factory 'Car', ($resource) ->
+  .factory 'CarService', ($resource) ->
     Car = $resource '/cars/:car_id', { car_id: '@id' },
       index: { method: 'GET', isArray: true },
       new: { method: 'GET' },

@@ -1,21 +1,11 @@
 class CarsController < ApplicationController
-
+  respond_to :json
   def index
     @cars = Car.all
-
-    respond_to do |format|
-      format.html  # index.html.erb
-      format.json  { render :json => @cars }
-    end
   end
 
   def show
     @car = Car.find(params[:id])
-
-    respond_to do |format|
-      format.html  # index.html.erb
-      format.json  { render :json => @car }
-    end
   end
 
   def new

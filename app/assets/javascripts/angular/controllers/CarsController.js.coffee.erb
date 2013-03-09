@@ -1,0 +1,36 @@
+`var win = typeof(window) === 'undefined' ? {} : window`
+`var mod = typeof(module) === 'undefined' ? {} : module`
+win.angularApp = win.angularApp || {}
+
+mod.exports = win.angularApp.CarsIndexController = ($scope, $location, CarsService) ->
+  $scope.cars = CarsService.query()
+
+  $scope.destroy = (id) ->
+    $scope.cars = $scope.cars.filter (car) ->
+      car.$delete() if car.id == id
+      car.id != id
+
+
+mod.exports = win.angularApp.CarsNewController = ($scope, $location, CarService) ->
+  $scope.save = ->
+    CarService.save $scope.car, (car) ->
+      $location.path '/'
+
+mod.exports = win.angularApp.CarsEditController = ($scope, $location, $routeParams, CarService) ->
+  self = @
+
+  CarService.get {car_id: $routeParams.car_id}, (car) ->
+    self.original_car = car
+    $scope.car = new CarService self.original_car
+
+  $scope.isClean = ->
+    angular.equals(self.original_car, $scope.car)
+
+  $scope.destroy = ->
+    self.original_car.destroy ->
+      $location.path '/list'
+
+  $scope.save = ->
+    window.car = $scope.car
+    $scope.car.$update ->
+      $location.path '/'
